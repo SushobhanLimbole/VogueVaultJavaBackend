@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.vogue_vault.RequestClass.AddCartItemRequest;
+import com.example.vogue_vault.RequestClass.AddWishlistItemRequest;
 import com.example.vogue_vault.entities.MyCart;
 import com.example.vogue_vault.entities.Users;
 import com.example.vogue_vault.entities.WishList;
@@ -38,6 +40,17 @@ public class UsersController {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
 	    }
 	}
+	
+	
+	@PostMapping("/users/addCartItem")
+    public String addCartItem(@RequestBody AddCartItemRequest request) {
+        return obj.addCartItem(request.getUserId(), request.getCartItem());
+    }
+
+    @PostMapping("/users/addWishlistItem")
+    public String addWishlistItem(@RequestBody AddWishlistItemRequest request) {
+        return obj.addWishlistItem(request.getUserId(), request.getWishlistItem());
+    }
 
 
 	@PostMapping("/users/getUserByEmail")

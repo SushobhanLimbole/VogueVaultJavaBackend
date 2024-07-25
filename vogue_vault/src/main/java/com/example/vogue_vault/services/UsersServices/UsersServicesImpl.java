@@ -38,6 +38,34 @@ public class UsersServicesImpl implements UsersServices {
 		}
 		return null;
 	}
+	
+	
+	@Override
+    public String addCartItem(int userId, MyCart cartItem) {
+        Optional<Users> userOptional = usersRepo.findById(userId);
+        if (userOptional.isPresent()) {
+            Users user = userOptional.get();
+            cartItem.setUserCartList(user); // Ensure the relationship is set
+            user.getCartList().add(cartItem);
+            usersRepo.save(user);
+            return "Cart item added successfully";
+        }
+        return "User not found";
+    }
+
+    @Override
+    public String addWishlistItem(int userId, WishList wishlistItem) {
+        Optional<Users> userOptional = usersRepo.findById(userId);
+        if (userOptional.isPresent()) {
+            Users user = userOptional.get();
+            wishlistItem.setUserWishList(user); // Ensure the relationship is set
+            user.getWishList().add(wishlistItem);
+            usersRepo.save(user);
+            return "Wishlist item added successfully";
+        }
+        return "User not found";
+    }
+	
 
 	public Optional<Users> getUserById(int id) {
 		Optional<Users> user = usersRepo.findById(id);
