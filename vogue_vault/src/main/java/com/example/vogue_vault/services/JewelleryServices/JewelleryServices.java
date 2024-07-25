@@ -7,6 +7,7 @@ import com.example.vogue_vault.entities.Jewellery;
 public interface JewelleryServices {
 
 	String addAllJewellery(List<Jewellery> l);
+	String addJewellery(Jewellery j);
 	Iterable<Jewellery> getAllJewellery();
 	String deleteAllJewellery();
 	String deleteJewellery(int id);

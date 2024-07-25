@@ -24,6 +24,11 @@ public class JewelleryController {
 		return addAllJewellery(l);
 	}
 	
+	@PostMapping("/jewellery/addJewellery")
+	public String addJewellery(@RequestBody Jewellery j) {
+		return addJewellery(j);
+	}
+	
 	@GetMapping("/jewellery/getAllJewellery")
 	public Iterable<Jewellery> getAllJewellery(){
 		return obj.getAllJewellery();

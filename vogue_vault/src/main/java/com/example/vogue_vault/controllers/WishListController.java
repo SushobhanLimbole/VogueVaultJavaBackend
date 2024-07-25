@@ -30,7 +30,7 @@ public class WishListController {
 
 	@DeleteMapping("/myCart/deleteAllWishListItems")
 	public String deleteAllWishListItems() {
-		return deleteAllWishListItems();
+		return obj.deleteAllWishListItems();
 	}
 
 	@PostMapping("/myCart/deleteWishListItem")

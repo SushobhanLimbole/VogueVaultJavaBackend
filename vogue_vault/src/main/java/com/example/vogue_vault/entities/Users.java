@@ -1,9 +1,16 @@
 package com.example.vogue_vault.entities;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Users {
@@ -18,6 +25,30 @@ public class Users {
 	private String userPic;
 	private String userAddress;
 	private String userPassword;
+
+	@OneToMany(mappedBy = "userWishList", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JsonManagedReference
+	List<WishList> wishList;
+
+	@OneToMany(mappedBy = "userCartList", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JsonManagedReference
+	List<MyCart> cartList;
+
+	public List<WishList> getWishList() {
+		return wishList;
+	}
+
+	public void setWishList(List<WishList> wishList) {
+		this.wishList = wishList;
+	}
+
+	public List<MyCart> getCartList() {
+		return cartList;
+	}
+
+	public void setCartList(List<MyCart> cartList) {
+		this.cartList = cartList;
+	}
 
 	public String getUserPassword() {
 		return userPassword;

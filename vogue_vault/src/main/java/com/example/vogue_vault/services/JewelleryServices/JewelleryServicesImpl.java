@@ -19,6 +19,11 @@ public class JewelleryServicesImpl implements JewelleryServices{
 		return "Added all jewellery successfully";
 	}
 	
+	public String addJewellery(Jewellery j) {
+		obj.save(j);
+		return "Added jewellery successfully";
+	}
+	
 	public Iterable<Jewellery> getAllJewellery(){
 		return obj.findAll();
 	}

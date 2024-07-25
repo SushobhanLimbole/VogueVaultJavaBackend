@@ -1,0 +1,7 @@
+runtime: java11
+instance_class: F2
+
+env_variables:
+  SPRING_DATASOURCE_URL: jdbc:mysql:///voguevault?cloudSqlInstance=arched-vigil-429913-i3:asia-south1:arched-vigil-429913-i3&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=root&password=voguevault1526
+  SPRING_DATASOURCE_USERNAME: root
+  SPRING_DATASOURCE_PASSWORD: voguevault1526

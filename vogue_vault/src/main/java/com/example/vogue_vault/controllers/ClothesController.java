@@ -24,6 +24,11 @@ public class ClothesController {
 		return obj.addAllClothes(l);
 	}
 	
+	@PostMapping("/clothes/addCloth")
+	public String addCloth(@RequestBody Clothes c) {
+		return obj.addCloth(c);
+	}
+	
 	@GetMapping("/clothes/getAllClothes")
 	public Iterable<Clothes> getAllClothes(){
 		return obj.getAllClothes();
@@ -31,11 +36,11 @@ public class ClothesController {
 	
 	@DeleteMapping("/clothes/deleteAllClothes")
 	public String deleteAllClothes() {
-		return deleteAllClothes();
+		return obj.deleteAllClothes();
 	}
 	
 	@DeleteMapping("/clothes/deleteClothes/{id}")
 	public String deleteClothes(@PathVariable int id) {
-		return deleteClothes(id);
+		return obj.deleteClothes(id);
 	}
 }

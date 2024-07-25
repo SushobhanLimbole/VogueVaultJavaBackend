@@ -1,5 +1,7 @@
 package com.example.vogue_vault.services.MyCartServices;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class MyCartServicesImpl implements MyCartServices{
 	public String addToCart(MyCart m) {
 		obj.save(m);
 		return "Added to cart";
+	}
+	
+	public String addAllCartItems(List<MyCart> l) {
+		obj.saveAll(l);
+		return "Added All Cart Items";
 	}
 	
 	public Iterable<MyCart> getCartItems(){

@@ -2,10 +2,14 @@ package com.example.vogue_vault.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class WishList {
@@ -24,6 +28,19 @@ public class WishList {
 	private List<String> sizes;
 	private List<String> colors;
 	private double price;
+
+	@ManyToOne
+	@JoinColumn(name = "users_userId")
+	@JsonBackReference
+	Users userWishList;
+
+	public Users getUserWishList() {
+		return userWishList;
+	}
+
+	public void setUserWishList(Users userWishList) {
+		this.userWishList = userWishList;
+	}
 
 	public int getId() {
 		return id;

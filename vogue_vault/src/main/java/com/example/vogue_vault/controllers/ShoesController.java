@@ -24,6 +24,11 @@ public class ShoesController {
 		return obj.addAllShoes(l);
 	}
 	
+	@PostMapping("/shoes/addShoe")
+	public String addShoe(@RequestBody Shoes s) {
+		return obj.addShoe(s);
+	}
+	
 	@GetMapping("/shoes/getAllShoes")
 	public Iterable<Shoes> getAllShoes(){
 		return obj.getAllShoes();

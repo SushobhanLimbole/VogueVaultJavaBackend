@@ -19,6 +19,11 @@ public class ClothesServicesImpl implements ClothesServices{
 		return "Added all clothes successfully";
 	}
 	
+	public String addCloth(Clothes c) {
+		obj.save(c);
+		return "Added cloth successfully";
+	}
+	
 	public Iterable<Clothes> getAllClothes(){
 		return obj.findAll();
 	}

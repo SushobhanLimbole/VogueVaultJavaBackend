@@ -1,11 +1,13 @@
 package com.example.vogue_vault.entities;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class MyCart {
@@ -20,6 +22,38 @@ public class MyCart {
 	private int cartQty;
 	private String imageUrl;
 	private double price;
+	private String selectedColor;
+	private String selectedSize;
+	
+	@ManyToOne
+	@JoinColumn(name = "users_userId")
+	@JsonBackReference
+	Users userCartList;
+
+	public Users getUserCartList() {
+		return userCartList;
+	}
+
+	public void setUserCartList(Users userCartList) {
+		this.userCartList = userCartList;
+	}
+
+
+	public String getSelectedColor() {
+		return selectedColor;
+	}
+
+	public void setSelectedColor(String selectedColor) {
+		this.selectedColor = selectedColor;
+	}
+
+	public String getSelectedSize() {
+		return selectedSize;
+	}
+
+	public void setSelectedSize(String selectedSize) {
+		this.selectedSize = selectedSize;
+	}
 
 	public int getId() {
 		return id;

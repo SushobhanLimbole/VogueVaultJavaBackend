@@ -24,6 +24,11 @@ public class ElectronicsController {
 		return obj.addAllElectronics(l);
 	}
 	
+	@PostMapping("/electronics/addElectronics")
+	public String addElectronics(@RequestBody Electronics e) {
+		return obj.addElectronics(e);
+	}
+	
 	@GetMapping("/electronics/getAllElectronics")
 	public Iterable<Electronics> getAllElectronics(){
 		return obj.getAllElectronics();

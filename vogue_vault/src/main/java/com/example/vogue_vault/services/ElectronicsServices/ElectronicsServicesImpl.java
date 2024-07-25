@@ -19,6 +19,11 @@ public class ElectronicsServicesImpl implements ElectronicsServices{
 		return "Added all electronics successfully";
 	}
 	
+	public String addElectronics(Electronics e) {
+		obj.save(e);
+		return "Added electronics successfully";
+	}
+	
 	public Iterable<Electronics> getAllElectronics(){
 		System.out.println("get ele called");
 		return obj.findAll();
