@@ -17,7 +17,7 @@ public interface UsersServices {
 	Optional<Users> getUserById(int id);
 	Iterable<Users> getAllUsers();
 	String deleteCartItem(int userId, int cartId);
-	String deleteWishListItem(int userId, int wishListId);
+	String deleteWishListItem(int userId, int productId, String categoryName);
 	String updateCartQty(int userId, int cartId, int newQty);
 	String deleteUser(int userId);
 }

@@ -132,9 +132,13 @@ public class UsersController {
 	}
 
 	@PostMapping("/users/deleteWishListItem")
-	public String deleteWishListItem(@RequestBody Map<String, Integer> payload) {
-		return obj.deleteWishListItem(payload.get("userId"), payload.get("wishListId"));
+	public String deleteWishListItem(@RequestBody Map<String, Object> payload) {
+	    int userId = (int) payload.get("userId");
+	    int productId = (int) payload.get("productId");
+	    String categoryName = (String) payload.get("categoryName");
+	    return obj.deleteWishListItem(userId, productId, categoryName);
 	}
+
 
 	@PostMapping("/users/updateCartQty")
 	public String updateCartQty(@RequestBody Map<String, Integer> payload) {

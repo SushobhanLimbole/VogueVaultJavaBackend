@@ -133,21 +133,27 @@ public class UsersServicesImpl implements UsersServices {
 	}
 
 	@Override
-	public String deleteWishListItem(int userId, int wishListId) {
-		Optional<Users> userOptional = usersRepo.findById(userId);
-		if (userOptional.isPresent()) {
-			Users user = userOptional.get();
-			List<WishList> wishList = user.getWishList();
-			boolean removed = wishList.removeIf(wish -> wish.getId() == wishListId);
-			if (removed) {
-				wishListServices.deleteWishListItem(wishListId); // Delete wishlist item from WishListRepository
-				user.setWishList(wishList); // Update the user's wishlist
-				usersRepo.save(user); // Save the updated user
-				return "Wishlist item deleted successfully";
-			}
-			return "Wishlist item not found";
-		}
-		return "User not found";
+	public String deleteWishListItem(int userId, int productId, String categoryName) {
+	    Optional<Users> userOptional = usersRepo.findById(userId);
+	    if (userOptional.isPresent()) {
+	        Users user = userOptional.get();
+	        List<WishList> wishList = user.getWishList();
+
+	        WishList itemToRemove = wishList.stream()
+	            .filter(wish -> wish.getProductId() == productId && wish.getCategoryName().equals(categoryName))
+	            .findFirst()
+	            .orElse(null);
+
+	        if (itemToRemove != null) {
+	            wishList.remove(itemToRemove);
+	            wishListServices.deleteWishListItem(itemToRemove.getId()); // Delete wishlist item using wishListId
+	            user.setWishList(wishList); // Update the user's wishlist
+	            usersRepo.save(user); // Save the updated user
+	            return "Wishlist item deleted successfully";
+	        }
+	        return "Wishlist item not found";
+	    }
+	    return "User not found";
 	}
 	
 	@Override
