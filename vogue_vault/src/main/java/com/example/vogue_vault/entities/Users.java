@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Users {
@@ -23,7 +24,12 @@ public class Users {
 	private String userAge;
 	private String userEmail;
 	private String userPic;
-	private String userAddress;
+
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private Address userAddress;
+	
 	private String userPassword;
 
 	@OneToMany(mappedBy = "userWishList", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -106,11 +112,11 @@ public class Users {
 		this.userPic = userPic;
 	}
 
-	public String getUserAddress() {
+	public Address getUserAddress() {
 		return userAddress;
 	}
 
-	public void setUserAddress(String userAddress) {
+	public void setUserAddress(Address userAddress) {
 		this.userAddress = userAddress;
 	}
 

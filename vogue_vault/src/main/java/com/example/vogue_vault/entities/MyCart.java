@@ -26,7 +26,7 @@ public class MyCart {
 	private String selectedSize;
 	
 	@ManyToOne
-	@JoinColumn(name = "users_userId")
+	@JoinColumn(name = "user_id")
 	@JsonBackReference
 	Users userCartList;
 

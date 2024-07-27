@@ -1,45 +1,54 @@
 package com.example.vogue_vault.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Address {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int AddressId;
-	private String Locality;
-	private String Steet;
+	private int addressId;
+	private String locality;
+	private String street;
 	private String subLocality;
-	private String Area;
+	private String area;
 	private String phone;
-	private String Country;
+	private String country;
+
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	@JsonBackReference
+	private Users user;
 
 	public int getAddressId() {
-		return AddressId;
+		return addressId;
 	}
 
 	public void setAddressId(int addressId) {
-		AddressId = addressId;
+		this.addressId = addressId;
 	}
 
 	public String getLocality() {
-		return Locality;
+		return locality;
 	}
 
 	public void setLocality(String locality) {
-		Locality = locality;
+		this.locality = locality;
 	}
 
-	public String getSteet() {
-		return Steet;
+	public String getStreet() {
+		return street;
 	}
 
-	public void setSteet(String steet) {
-		Steet = steet;
+	public void setStreet(String street) {
+		this.street = street;
 	}
 
 	public String getSubLocality() {
@@ -51,11 +60,11 @@ public class Address {
 	}
 
 	public String getArea() {
-		return Area;
+		return area;
 	}
 
 	public void setArea(String area) {
-		Area = area;
+		this.area = area;
 	}
 
 	public String getPhone() {
@@ -67,11 +76,19 @@ public class Address {
 	}
 
 	public String getCountry() {
-		return Country;
+		return country;
 	}
 
 	public void setCountry(String country) {
-		Country = country;
+		this.country = country;
+	}
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
 	}
 
 }

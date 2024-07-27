@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,22 +26,16 @@ public class WishList {
 	private String imageUrl;
 	private boolean favorite;
 	private int rating;
+	@ElementCollection
 	private List<String> sizes;
+	@ElementCollection
 	private List<String> colors;
 	private double price;
 
 	@ManyToOne
-	@JoinColumn(name = "users_userId")
+	@JoinColumn(name = "user_id")
 	@JsonBackReference
 	Users userWishList;
-
-	public Users getUserWishList() {
-		return userWishList;
-	}
-
-	public void setUserWishList(Users userWishList) {
-		this.userWishList = userWishList;
-	}
 
 	public int getId() {
 		return id;
@@ -144,6 +139,14 @@ public class WishList {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public Users getUserWishList() {
+		return userWishList;
+	}
+
+	public void setUserWishList(Users userWishList) {
+		this.userWishList = userWishList;
 	}
 
 }

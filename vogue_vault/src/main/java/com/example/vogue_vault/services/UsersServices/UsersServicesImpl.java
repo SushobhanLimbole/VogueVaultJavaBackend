@@ -6,18 +6,25 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.vogue_vault.entities.Address;
 import com.example.vogue_vault.entities.MyCart;
 import com.example.vogue_vault.entities.Users;
 import com.example.vogue_vault.entities.WishList;
+import com.example.vogue_vault.repositories.AddressRepository;
 import com.example.vogue_vault.repositories.UsersRepository;
 import com.example.vogue_vault.services.MyCartServices.MyCartServicesImpl;
 import com.example.vogue_vault.services.WishListServices.WishListServicesImpl;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class UsersServicesImpl implements UsersServices {
 
 	@Autowired
 	UsersRepository usersRepo;
+	
+	@Autowired
+	AddressRepository addressRepo;
 
 	@Autowired
 	MyCartServicesImpl cartServices;
@@ -29,6 +36,28 @@ public class UsersServicesImpl implements UsersServices {
 		usersRepo.save(u);
 		return "User added successfully";
 	}
+	
+	@Override
+	public String createUserWithDetails(Users user) {
+		usersRepo.save(user);
+		return "User Created successfully";
+	}
+	
+	@Transactional
+	public String updateUserAddress(int userId, Address newAddress) {
+        Users user = usersRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        
+        if (user.getUserAddress() != null) {
+            newAddress.setAddressId(user.getUserAddress().getAddressId());
+        }
+
+        newAddress.setUser(user);
+        user.setUserAddress(newAddress);
+        
+        addressRepo.save(newAddress);
+        usersRepo.save(user);
+        return "Address updated successfully";
+    }
 
 	public Users getUserByEmail(String email) {
 		for (Users u : usersRepo.findAll()) {
@@ -53,18 +82,28 @@ public class UsersServicesImpl implements UsersServices {
         return "User not found";
     }
 
-    @Override
-    public String addWishlistItem(int userId, WishList wishlistItem) {
-        Optional<Users> userOptional = usersRepo.findById(userId);
-        if (userOptional.isPresent()) {
-            Users user = userOptional.get();
-            wishlistItem.setUserWishList(user); // Ensure the relationship is set
-            user.getWishList().add(wishlistItem);
-            usersRepo.save(user);
-            return "Wishlist item added successfully";
-        }
-        return "User not found";
-    }
+	@Override
+	public String addWishlistItem(int userId, WishList wishlistItem) {
+	    Optional<Users> userOptional = usersRepo.findById(userId);
+	    if (userOptional.isPresent()) {
+	        Users user = userOptional.get();
+	        
+	        // Check if the product is already in the wishlist
+	        for (WishList item : user.getWishList()) {
+	            if (item.getProductId() == wishlistItem.getProductId()) {
+	                return "Wishlist item already exists";
+	            }
+	        }
+
+	        // If not present, add the new wishlist item
+	        wishlistItem.setUserWishList(user); // Ensure the relationship is set
+	        user.getWishList().add(wishlistItem);
+	        usersRepo.save(user);
+	        return "Wishlist item added successfully";
+	    }
+	    return "User not found";
+	}
+
 	
 
 	public Optional<Users> getUserById(int id) {
@@ -130,4 +169,8 @@ public class UsersServicesImpl implements UsersServices {
 	    return "User not found";
 	}
 
+	public String deleteUser(int userId) {
+		usersRepo.deleteById(userId);
+		return "User deleted successfully";
+	}
 }
