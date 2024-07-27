@@ -43,7 +43,6 @@ public class UsersServicesImpl implements UsersServices {
 		return "User Created successfully";
 	}
 	
-	@Transactional
 	public String updateUserAddress(int userId, Address newAddress) {
         Users user = usersRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         
