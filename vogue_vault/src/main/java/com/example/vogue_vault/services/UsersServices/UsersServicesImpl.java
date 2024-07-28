@@ -146,9 +146,9 @@ public class UsersServicesImpl implements UsersServices {
 
 	        if (itemToRemove != null) {
 	            wishList.remove(itemToRemove);
-	            wishListServices.deleteWishListItem(itemToRemove.getId()); // Delete wishlist item using wishListId
-	            user.setWishList(wishList); // Update the user's wishlist
-	            usersRepo.save(user); // Save the updated user
+	            wishListServices.deleteWishListItem(itemToRemove.getId()); 
+	            user.setWishList(wishList); 
+	            usersRepo.save(user); 
 	            return "Wishlist item deleted successfully";
 	        }
 	        return "Wishlist item not found";
