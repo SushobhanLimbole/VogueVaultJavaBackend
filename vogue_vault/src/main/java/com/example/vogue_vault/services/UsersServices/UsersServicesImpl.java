@@ -89,7 +89,7 @@ public class UsersServicesImpl implements UsersServices {
 	        
 	        // Check if the product is already in the wishlist
 	        for (WishList item : user.getWishList()) {
-	            if (item.getProductId() == wishlistItem.getProductId()) {
+	            if (item.getProductId() == wishlistItem.getProductId() && item.getCategoryName().contentEquals(wishlistItem.getCategoryName())) {
 	                return "Wishlist item already exists";
 	            }
 	        }
